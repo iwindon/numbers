@@ -1,17 +1,25 @@
-from flask import Flask, render_template, request, session, redirect, url_for
+"""Flask module for a simple multiplication quiz game."""
 import random
+from flask import Flask, render_template, request, session, redirect, url_for
+
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
 @app.route('/')
 def home():
+    """
+    Display the home page.
+    """
     session['score'] = 0
     session['count'] = 0
     return redirect(url_for('quiz'))
 
 @app.route('/quiz')
 def quiz():
+    """
+    Display the quiz page.
+    """
     if session['count'] == 25:
         return redirect(url_for('end'))
 
@@ -23,6 +31,9 @@ def quiz():
 
 @app.route('/result', methods=['POST'])
 def result():
+    """
+    Check the answer and update the score.
+    """
     answer = request.form.get('answer')
     if int(answer) == session['answer']:
         session['score'] += 1
@@ -30,6 +41,9 @@ def result():
 
 @app.route('/end')
 def end():
+    """
+    Display the end page.
+    """
     return render_template('end.html', score=session['score'])
 
 if __name__ == '__main__':
