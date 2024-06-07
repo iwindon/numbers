@@ -2,13 +2,16 @@ from flask import Flask, render_template, request, session, redirect, url_for
 import random
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key_here'
+app.secret_key = 'your_secret_key'
 
 @app.route('/')
+def home():
+    session['score'] = 0
+    session['count'] = 0
+    return redirect(url_for('quiz'))
+
+@app.route('/quiz')
 def quiz():
-    if 'score' not in session:
-        session['score'] = 0
-        session['count'] = 0
     if session['count'] == 25:
         return redirect(url_for('end'))
 
