@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <h1>Times Tables</h1>
+    {% for num, table in times_tables.items() %}
+        <h2>{{ num }} Times Table</h2>
+        <ul>
+            {% for i in range(10) %}
+                <li>{{ num }} * {{ i + 1 }} = {{ table[i] }}</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+    <a href="{{ url_for('home') }}">Back to menu</a>
+</body>
+</html>

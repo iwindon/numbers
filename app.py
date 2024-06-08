@@ -9,11 +9,19 @@ app.secret_key = 'your_secret_key'
 @app.route('/')
 def home():
     """
-    Display the home page.
+    Display the menu page.
     """
     session['score'] = 0
     session['count'] = 0
-    return redirect(url_for('quiz'))
+    return render_template('menu.html')
+
+@app.route('/review')
+def review():
+    """
+    Display the times tables from 1 to 10.
+    """
+    times_tables = {i: [i * j for j in range(1, 11)] for i in range(1, 11)}
+    return render_template('review.html', times_tables=times_tables)
 
 @app.route('/quiz')
 def quiz():
