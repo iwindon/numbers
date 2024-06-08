@@ -23,28 +23,41 @@ def quiz():
     if session['count'] == 25:
         return redirect(url_for('end'))
 
-    num1 = random.randint(1, 10)
-    num2 = random.randint(1, 10)
-    session['answer'] = num1 * num2
-    session['count'] += 1
-    return render_template('quiz.html', num1=num1, num2=num2, count=session['count'])
+    # Reset the count and clear the wrong questions at the start of a new game
+    if session['count'] == 0:
+        session['wrong_questions'] = []
 
+    session['num1'] = random.randint(1, 10)
+    session['num2'] = random.randint(1, 10)
+    session['answer'] = session['num1'] * session['num2']
+    session['count'] += 1
+    return render_template('quiz.html', num1=session['num1'], num2=session['num2'], count=session['count'], score=session['score'], wrong_answer=session.get('wrong_answer', False), correct_answer=session.get('correct_answer', 0))
 @app.route('/result', methods=['POST'])
 def result():
     """
-    Check the answer and update the score.
+    Process the quiz result.
     """
     answer = request.form.get('answer')
     if int(answer) == session['answer']:
         session['score'] += 1
+        session['wrong_answer'] = False
+    else:
+        session['wrong_answer'] = True
+        # Store the question and correct answer in the session
+        question = f"{session.get('num1')} * {session.get('num2')}"
+        correct_answer = session['answer']
+        if 'wrong_questions' not in session:
+            session['wrong_questions'] = []
+        session['wrong_questions'].append((question, correct_answer))
     return redirect(url_for('quiz'))
 
 @app.route('/end')
 def end():
     """
-    Display the end page.
+    Display the end page with the score and wrong answers.
     """
-    return render_template('end.html', score=session['score'])
+    wrong_questions = session.get('wrong_questions', [])
+    return render_template('end.html', score=session['score'], wrong_questions=wrong_questions)
 
 if __name__ == '__main__':
     app.run(debug=True)

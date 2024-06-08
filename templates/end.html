@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <!-- ...existing head... -->
+</head>
 <body>
+    <h1>Your score: {{ score }}</h1>
+    <h2>Questions you got wrong:</h2>
+    <ul>
+        {% for question, correct_answer in wrong_questions %}
+            <li>{{ question }} = {{ correct_answer }}</li>
+        {% endfor %}
+    </ul>
     <h2>Your score is: {{ score }}</h2>
 </body>
 </html>

@@ -1,10 +1,45 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .wrong-answer {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: red;
+        }
+        .score {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
 <body>
-    <h2>Question {{ count }}: What is {{ num1 }} * {{ num2 }}?</h2>
-    <form action="/result" method="post">
-        <input type="number" name="answer" required autofocus>
-        <input type="submit" value="Submit">
-    </form>
+    <div class="score">Score: {{ score }}</div>
+    <div>
+        <h2>Question {{ count }}: What is {{ num1 }} * {{ num2 }}?</h2>
+        <form action="/result" method="post">
+            <input type="number" name="answer" required autofocus>
+            <input type="submit" value="Submit">
+        </form>
+        {% if wrong_answer %}
+        <div class="wrong-answer">Your last answer was wrong. The correct answer was {{ correct_answer }}.</div>
+        {% endif %}
+    </div>
 </body>
 </html>
