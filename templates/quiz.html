@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="../static/styles.css">
 </head>
 <body>
     <div class="score">Score: {{ score }}</div>
     <div>
-        <h2>Question {{ count }}: What is {{ num1 }} * {{ num2 }}?</h2>
+		<h2 class="question"> Question {{ count }}</h2>
+		<h2 class="question">	What is {{ num1 }} * {{ num2 }}?</h2>
         <form action="/result" method="post">
             <input type="number" name="answer" required autofocus>
-            <input type="submit" value="Submit">
+            <input class="button-72" type="submit" value="Submit">
         </form>
         {% if wrong_answer %}
         <div class="wrong-answer">Your last answer was wrong. The correct answer was {{ correct_answer }}.</div>
