@@ -2,7 +2,6 @@
 import random
 from flask import Flask, render_template, request, session, redirect, url_for
 
-
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
@@ -32,6 +31,7 @@ def quiz():
     session['answer'] = session['num1'] * session['num2']
     session['count'] += 1
     return render_template('quiz.html', num1=session['num1'], num2=session['num2'], count=session['count'], score=session['score'], wrong_answer=session.get('wrong_answer', False), correct_answer=session.get('correct_answer', 0))
+
 @app.route('/result', methods=['POST'])
 def result():
     """
@@ -46,6 +46,7 @@ def result():
         # Store the question and correct answer in the session
         question = f"{session.get('num1')} * {session.get('num2')}"
         correct_answer = session['answer']
+        session['correct_answer'] = correct_answer  # Set the correct answer in the session
         if 'wrong_questions' not in session:
             session['wrong_questions'] = []
         session['wrong_questions'].append((question, correct_answer))

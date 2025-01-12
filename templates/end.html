@@ -1,16 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-</head>
-<body>
-    <h1>Your score: {{ score }}</h1>
-    <h2>Questions you got wrong:</h2>
-    <ul>
-        {% for question, correct_answer in wrong_questions %}
-            <li>{{ question }} = {{ correct_answer }}</li>
-        {% endfor %}
-    </ul>
-    <h2>Your score is: {{ score }}</h2>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+<div class="mt-5">
+    <h1 class="text-center">Quiz Completed!</h1>
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">Your final score is {{ score }} out of 25</h5>
+            {% if wrong_questions %}
+                <h6 class="mt-4">Questions you got wrong:</h6>
+                <ul class="list-group">
+                    {% for question, correct_answer in wrong_questions %}
+                        <li class="list-group-item">{{ question }} = {{ correct_answer }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <a href="{{ url_for('home') }}" class="btn btn-primary mt-4">Play Again</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

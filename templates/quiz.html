@@ -1,19 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-</head>
-<body>
-    <div class="score">Score: {{ score }}</div>
-    <div>
-        <h2>Question {{ count }}: What is {{ num1 }} * {{ num2 }}?</h2>
-        <form action="/result" method="post">
-            <input type="number" name="answer" required autofocus>
-            <input type="submit" value="Submit">
-        </form>
-        {% if wrong_answer %}
-        <div class="wrong-answer">Your last answer was wrong. The correct answer was {{ correct_answer }}.</div>
-        {% endif %}
+{% extends "base.html" %}
+
+{% block content %}
+<div class="mt-5">
+    <h1 class="text-center">Multiplication Quiz</h1>
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">Question {{ count }} of 25</h5>
+            <p class="card-text">What is {{ num1 }} * {{ num2 }}?</p>
+            <form action="{{ url_for('result') }}" method="post">
+                <div class="form-group">
+                    <input type="number" class="form-control" name="answer" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            {% if wrong_answer %}
+                <div class="alert alert-danger mt-3">Wrong! The correct answer was {{ correct_answer }}.</div>
+            {% endif %}
+        </div>
     </div>
-</body>
-</html>
+    <div class="mt-3">
+        <p>Score: {{ score }}</p>
+    </div>
+</div>
+{% endblock %}
