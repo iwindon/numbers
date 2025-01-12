@@ -12,6 +12,7 @@ def home():
     """
     session['score'] = 0
     session['count'] = 0
+    session['wrong_questions'] = []
     return redirect(url_for('quiz'))
 
 @app.route('/quiz')
@@ -19,6 +20,9 @@ def quiz():
     """
     Display the quiz page.
     """
+    if 'count' not in session:
+        session['count'] = 0
+
     if session['count'] == 25:
         return redirect(url_for('end'))
 
