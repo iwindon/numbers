@@ -22,7 +22,7 @@ The project has the following structure:
 2. Run the `app.py` script:
 
     ```
-    python app.py
+    python3 app.py
     ```
 
 3. Open a web browser and navigate to `http://localhost:5000` to start the quiz.
