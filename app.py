@@ -35,13 +35,18 @@ def quiz():
     if session['count'] == 0:
         session['wrong_questions'] = []
 
-    session['num1'] = random.randint(1, 10)
-    session['num2'] = random.randint(1, 10)
+    session['num1'] = random.randint(1, 12)
+    session['num2'] = random.randint(1, 12)
     session['answer'] = session['num1'] * session['num2']
     session['count'] += 1
 
     if session['difficulty'] == 'easy':
-        choices = [session['answer'], random.randint(1, 100), random.randint(1, 100), random.randint(1, 100)]
+        correct_answer = session['answer']
+        choices = [correct_answer]
+        while len(choices) < 4:
+            wrong_choice = random.randint(max(1, correct_answer - 10), correct_answer + 10)
+            if wrong_choice != correct_answer and wrong_choice not in choices:
+                choices.append(wrong_choice)
         random.shuffle(choices)
         return render_template('quiz_easy.html', num1=session['num1'], num2=session['num2'], count=session['count'], score=session['score'], choices=choices, wrong_answer=session.get('wrong_answer', False), correct_answer=session.get('correct_answer', 0))
     else:
@@ -80,7 +85,7 @@ def study():
     """
     Display the multiplication tables for studying.
     """
-    tables = {i: [i * j for j in range(1, 11)] for i in range(1, 11)}
+    tables = {i: [i * j for j in range(1, 13)] for i in range(1, 13)}
     return render_template('study.html', tables=tables)
 
 if __name__ == '__main__':
