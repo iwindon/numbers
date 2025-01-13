@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="mt-5">
+    <h1 class="text-center">Multiplication Quiz</h1>
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">Question {{ count }} of {{ session['num_questions'] }}</h5>
+            <p class="card-text">What is {{ num1 }} * {{ num2 }}?</p>
+            <form action="{{ url_for('result') }}" method="post">
+                <div class="form-group">
+                    {% for choice in choices %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="answer" id="choice{{ loop.index }}" value="{{ choice }}" required>
+                            <label class="form-check-label" for="choice{{ loop.index }}">
+                                {{ choice }}
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            {% if wrong_answer %}
+                <div class="alert alert-danger mt-3">Wrong! The correct answer was {{ correct_answer }}.</div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="mt-3">
+        <p>Score: {{ score }}</p>
+    </div>
+</div>
+{% endblock %}
