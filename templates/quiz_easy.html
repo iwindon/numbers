@@ -6,7 +6,7 @@
     <div class="card mt-4">
         <div class="card-body">
             <h5 class="card-title">Question {{ count }} of {{ session['num_questions'] }}</h5>
-            <p class="card-text">What is {{ num1 }} * {{ num2 }}?</p>
+            <p class="card-text">What is {{ num1 }} x {{ num2 }}?</p>
             <form action="{{ url_for('result') }}" method="post">
                 <div class="form-group">
                     {% for choice in choices %}
