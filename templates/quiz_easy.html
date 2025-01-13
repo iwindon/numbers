@@ -9,7 +9,14 @@
             <p class="card-text">What is {{ num1 }} * {{ num2 }}?</p>
             <form action="{{ url_for('result') }}" method="post">
                 <div class="form-group">
-                    <input type="number" class="form-control" name="answer" required>
+                    {% for choice in choices %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="answer" id="choice{{ loop.index }}" value="{{ choice }}" required>
+                            <label class="form-check-label" for="choice{{ loop.index }}">
+                                {{ choice }}
+                            </label>
+                        </div>
+                    {% endfor %}
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

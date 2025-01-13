@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="mt-5">
+    <h1 class="text-center">Welcome to the Multiplication Quiz</h1>
+    <div class="card mt-4">
+        <div class="card-body">
+            <form action="{{ url_for('start_quiz') }}" method="post">
+                <div class="form-group">
+                    <label for="num_questions">Number of Questions:</label>
+                    <input type="number" class="form-control" id="num_questions" name="num_questions" min="1" max="50" value="25" required>
+                </div>
+                <div class="form-group">
+                    <label for="difficulty">Difficulty:</label>
+                    <select class="form-control" id="difficulty" name="difficulty" required>
+                        <option value="normal">Normal</option>
+                        <option value="easy">Easy</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Start Quiz</button>
+            </form>
+            <hr>
+            <a href="{{ url_for('study') }}" class="btn btn-secondary mt-3">Study Multiplication Tables</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

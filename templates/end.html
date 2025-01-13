@@ -5,7 +5,7 @@
     <h1 class="text-center">Quiz Completed!</h1>
     <div class="card mt-4">
         <div class="card-body">
-            <h5 class="card-title">Your final score is {{ score }} out of 25</h5>
+            <h5 class="card-title">Your final score is {{ score }} out of {{ session['num_questions'] }}</h5>
             {% if wrong_questions %}
                 <h6 class="mt-4">Questions you got wrong:</h6>
                 <ul class="list-group">

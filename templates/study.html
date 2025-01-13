@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="mt-5">
+    <h1 class="text-center">Study Multiplication Tables</h1>
+    <div class="card mt-4">
+        <div class="card-body">
+            {% for num, table in tables.items() %}
+                <h5>{{ num }} Times Table</h5>
+                <ul class="list-group mb-3">
+                    {% for result in table %}
+                        <li class="list-group-item">{{ num }} x {{ loop.index }} = {{ result }}</li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+            <a href="{{ url_for('home') }}" class="btn btn-primary mt-3">Back to Home</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
