@@ -1,6 +1,5 @@
-"""Flask module for a simple multiplication quiz game."""
-import random
 from flask import Flask, render_template, request, session, redirect, url_for
+import random
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -75,6 +74,14 @@ def end():
     """
     wrong_questions = session.get('wrong_questions', [])
     return render_template('end.html', score=session['score'], wrong_questions=wrong_questions)
+
+@app.route('/study')
+def study():
+    """
+    Display the multiplication tables for studying.
+    """
+    tables = {i: [i * j for j in range(1, 11)] for i in range(1, 11)}
+    return render_template('study.html', tables=tables)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="mt-5">
-    <h1 class="text-center">Welcome to the Math Quiz</h1>
+    <h1 class="text-center">Welcome to the Multiplication Quiz</h1>
     <div class="card mt-4">
         <div class="card-body">
             <form action="{{ url_for('start_quiz') }}" method="post">
@@ -19,6 +19,8 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Start Quiz</button>
             </form>
+            <hr>
+            <a href="{{ url_for('study') }}" class="btn btn-secondary mt-3">Study Multiplication Tables</a>
         </div>
     </div>
 </div>
