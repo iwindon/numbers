@@ -48,9 +48,9 @@ def quiz():
             if wrong_choice != correct_answer and wrong_choice not in choices:
                 choices.append(wrong_choice)
         random.shuffle(choices)
-        return render_template('quiz_easy.html', num1=session['num1'], num2=session['num2'], count=session['count'], score=session['score'], choices=choices, wrong_answer=session.get('wrong_answer', False), correct_answer=session.get('correct_answer', 0))
+        return render_template('quiz_easy.html', num1=session['num1'], num2=session['num2'], count=session['count'], score=session['score'], choices=choices, wrong_answer=session.get('wrong_answer', False), correct_answer=session.get('correct_answer', 0), full_formula=session.get('full_formula', ''))
     else:
-        return render_template('quiz.html', num1=session['num1'], num2=session['num2'], count=session['count'], score=session['score'], wrong_answer=session.get('wrong_answer', False), correct_answer=session.get('correct_answer', 0))
+        return render_template('quiz.html', num1=session['num1'], num2=session['num2'], count=session['count'], score=session['score'], wrong_answer=session.get('wrong_answer', False), correct_answer=session.get('correct_answer', 0), full_formula=session.get('full_formula', ''))
 
 @app.route('/result', methods=['POST'])
 def result():
@@ -61,12 +61,15 @@ def result():
     if int(answer) == session['answer']:
         session['score'] += 1
         session['wrong_answer'] = False
+        session['full_formula'] = ''
     else:
         session['wrong_answer'] = True
         # Store the question and correct answer in the session
         question = f"{session.get('num1')} * {session.get('num2')}"
         correct_answer = session['answer']
+        full_formula = f"{question} = {correct_answer}"
         session['correct_answer'] = correct_answer  # Set the correct answer in the session
+        session['full_formula'] = full_formula  # Set the full formula in the session
         if 'wrong_questions' not in session:
             session['wrong_questions'] = []
         session['wrong_questions'].append((question, correct_answer))
