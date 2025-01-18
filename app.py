@@ -1,8 +1,25 @@
 from flask import Flask, render_template, request, session, redirect, url_for
+from flask_session import Session
+import redis
 import random
+import os
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'
+app.secret_key = os.getenv('SECRET_KEY', 'your_secret_key')
+
+# Configure server-side session to use Redis
+app.config['SESSION_TYPE'] = 'redis'
+app.config['SESSION_PERMANENT'] = False
+app.config['SESSION_USE_SIGNER'] = True
+app.config['SESSION_REDIS'] = redis.StrictRedis(
+    host=os.getenv('REDIS_HOST'),
+    port=int(os.getenv('REDIS_PORT')),
+    password=os.getenv('REDIS_PASSWORD'),
+    ssl=True
+)
+
+# Initialize the session
+Session(app)
 
 @app.route('/')
 def home():
